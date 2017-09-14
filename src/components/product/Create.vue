@@ -13,13 +13,13 @@
                 <label for="" style="margin-right: 40px">คุณคือ ?</label>
                 <div class="form-check form-check-inline">
                   <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="userradio" id="inlineRadio1" v-model="products.userradio" value="buyer"> ผู้สั่งซื้อ
-                          </label>
+                                            <input class="form-check-input" type="radio" name="userradio" id="inlineRadio1" v-model="products.userradio" value="buyer"> ผู้สั่งซื้อ
+                                          </label>
                 </div>
                 <div class="form-check form-check-inline">
                   <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="userradio" id="inlineRadio2" v-model="products.userradio" value="farmer"> ผู้เสนอขาย
-                          </label>
+                                <input class="form-check-input" type="radio" name="userradio" id="inlineRadio2" v-model="products.userradio" value="farmer"> ผู้เสนอขาย
+                              </label>
                 </div>
               </div>
             </div>
@@ -36,8 +36,8 @@
             <div class="row">
               <div class="form-group col-md-12">
                 <label for="">รายละเอียด <br>
-                          <small>** โปรดให้รายละเอียดเพิ่มเติม อาทิ รูปแบบผลผลิต จุดเด่น มาตรฐานที่ได้รับรอง เป็นต้น</small>
-                        </label>
+                                          <small>** โปรดให้รายละเอียดเพิ่มเติม อาทิ รูปแบบผลผลิต จุดเด่น มาตรฐานที่ได้รับรอง เป็นต้น</small>
+                                        </label>
                 <textarea maxlength="300" rows="6" class="form-control" data-validation="required" v-model="products.Detail"></textarea>
               </div>
             </div>
@@ -61,14 +61,12 @@
               <div class="form-group col-md-12">
                 <label for="" style="margin-right: 40px">สถานที่เพาะปลูก</label>
                 <div class="form-check form-check-inline">
-                  <label class="form-check-label">
-                            <input class="form-check-input" type="radio" id="oldAddress" v-model="products.addressradio" value="oldAddress"> ใช้ที่อยู่เดียวกับประวัติ
-                          </label>
+                  <label class="form-check-label"></label>
+                  <input class="form-check-input" type="radio" id="oldAddress" v-model="products.addressradio" value="oldAddress"> ใช้ที่อยู่เดียวกับประวัติ
                 </div>
                 <div class="form-check form-check-inline">
-                  <label class="form-check-label">
-                            <input class="form-check-input" type="radio" id="newAddress" v-model="products.addressradio" value="newAddress"> ระบุที่อยู่ใหม่
-                          </label>
+                  <label class="form-check-label"></label>
+                  <input class="form-check-input" type="radio" id="newAddress" v-model="products.addressradio" value="newAddress"> ระบุที่อยู่ใหม่
                 </div>
               </div>
             </div>
@@ -101,8 +99,8 @@
             <input type="text" id="lat" v-model="products.Latitude" value="12.1212">
             <input type="text" id="lng" v-model="products.Longitude" value="102.21323">
             <button class="btn btn-lg pull-right" style="border-radius: 0px;background-color: #6495ed;color:#fff" type="submit" id="submit">
-                      <span>Save</span>
-                    </button>
+                                      <span>Save</span>
+                                    </button>
           </form>
         </div>
         <div class="col-md">
@@ -127,8 +125,13 @@
     data: () => ({
       products: [],
     }),
+    beforeCreate: function () {
+      if (!this.$session.exists()) {
+        this.$router.push('/login')
+      }
+    },
     methods: {
-      addProduct: function (e) {
+      addProduct: function(e) {
         const data = {
           UserID: 'D1230',
           ProductName: this.products.ProductName,

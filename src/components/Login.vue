@@ -35,8 +35,14 @@
     name: 'login',
     data: () => ({
       logins: [],
-      errors: []
+      errors: [],
     }),
+    beforeCreate: function () {
+      /* check session login */
+      if (this.$session.exists()) {
+        this.$router.push('/market')
+      }
+    },
     methods: {
       login(e) {
         var app = this;
@@ -48,7 +54,7 @@
           .then(function(response) {
             //console.log(response.data);
             //console.log(response.status); // ex.: 200
-            if (response.data == 'True') {
+            if (response.data) {
               swal({
                 title: 'Sign in Success!',
                 text: '',
@@ -56,6 +62,10 @@
                 timer: 2000,
               }).then(function() {
                 // window.location.href = 'profile';
+                app.$session.start()
+                app.$session.set('phone', response.data.phone)
+                app.$session.set('pwd', response.data.pwd)
+                app.$session.set('userid', response.data.userid)
                 app.$router.push({path: '/market'}) // It's works!!  
               }, function(dismiss) {
                 // dismiss can be 'cancel', 'overlay',
@@ -70,7 +80,7 @@
             console.log(error);
           })
       }
-    },
+    }
   }
 </script>
 

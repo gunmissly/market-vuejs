@@ -32,7 +32,9 @@
             <div class="card-footer">
               <div class="row">
                 <div class="col-6">
-                  <div class="btn btn-outline-danger" v-on:click="deleteProduct(product)">Delete</div>
+                  <div class="btn btn-outline-danger" v-on:click="deleteProduct(product)">
+                    Delete
+                  </div>
                 </div>
                 <div class="col-6">
                   <router-link class="btn btn-outline-dark" v-bind:to="'/market/'+product.RequestID">Detail</router-link>
@@ -44,7 +46,6 @@
                   <p>{{ product.HarvestDay | harvestDate }}</p>
                 </div>
               </div>
-  
             </div>
           </div>
         </div>
@@ -74,6 +75,12 @@
       active: false,
       id: ''
     }),
+    beforeCreate: function () {
+      /* check session login */
+      if (!this.$session.exists()) {
+        this.$router.push('/login')
+      }
+    },
     created: function() {
       this.getProduct();
     },

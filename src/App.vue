@@ -8,14 +8,15 @@
   
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <router-link to="/" class="nav-link r-item">Profile</router-link>
+          <li class="nav-item">
+            <router-link to="/" class="nav-link r-item" exact>Profile</router-link>
           </li>
-          <li class="nav-item ">
-            <router-link to="market" class="nav-link r-item">Market</router-link>
+          <li class="nav-item">
+            <router-link to="market" class="nav-link r-item" exact>Market</router-link>
           </li>
         </ul>
-        <router-link to="login" class="btn btn-outline-danger my-2 my-sm-0">Login</router-link>
+        <router-link to="login" class="btn btn-outline-danger my-2 my-sm-0" v-bind:class="{active:true}">Login</router-link>
+        <button class="btn btn-outline-light ml-2" @click="logout">Logout</button>
       </div>
     </nav>
     <router-view></router-view>
@@ -32,8 +33,12 @@
       }
     },
     methods: {
-      toggleNav: function() {
+      toggleNav: function () {
         this.isActive = !this.isActive;
+      },
+      logout: function () {
+        this.$session.destroy()
+        this.$router.push('/login')
       }
     }
   }

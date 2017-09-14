@@ -12,23 +12,24 @@ export default new Router({
     routes: [{
             path: '/',
             name: 'Profile',
-            component: Profile
+            component: Profile,
         },
         {
             path: '/market',
             name: 'Market',
-            component: Market
+            component: Market,
         },
         {
             path: '/create',
             name: 'Create',
-            component: Create
+            component: Create,
         },
         {
             path: '/login',
             name: 'Login',
-            component: Login
+            component: Login,
         }
     ],
-    mode: 'history',
+    mode: 'history', 
+    linkExactActiveClass: 'active',
 });

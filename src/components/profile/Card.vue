@@ -1,11 +1,14 @@
 <template>
-  
+  <div id="">
+
+  </div>
 </template>
 
 <script>
-export default {
-    name: 'card'
-}
+  export default{
+    name: '',
+
+  };
 </script>
 
 <style lang="scss">
