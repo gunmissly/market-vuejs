@@ -14,6 +14,9 @@
           <li class="nav-item">
             <router-link to="market" class="nav-link r-item" exact>Market</router-link>
           </li>
+           <li class="nav-item">
+            <router-link to="map" class="nav-link r-item" exact>Map</router-link>
+          </li>
         </ul>
         <router-link to="login" class="btn btn-outline-danger my-2 my-sm-0" v-bind:class="{active:true}">Login</router-link>
         <button class="btn btn-outline-light ml-2" @click="logout">Logout</button>

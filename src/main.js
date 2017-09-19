@@ -18,15 +18,15 @@ new Vue({
     render: h => h(App),
 })
 
-Vue.filter('formatDate', function (value) {
+Vue.filter('formatDate', function(value) {
     if (value) {
         return moment(String(value)).startOf('hour').fromNow()
-        // return moment(String(value)).startOf('day').fromNow()
-        // return moment(String(value)).format('MM/DD/YYYY HH:mm:ss')
+            // return moment(String(value)).startOf('day').fromNow()
+            // return moment(String(value)).format('MM/DD/YYYY HH:mm:ss')
     }
 })
 
-Vue.filter('harvestDate', function (value) {
+Vue.filter('harvestDate', function(value) {
     if (value) {
         return moment(String(value)).format('MM/DD/YYYY')
     }

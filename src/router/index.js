@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Profile from '@/components/Profile'
-import Create from '@/components/product/Create'
 import Login from '@/components/Login'
+const Create = () =>
+    import ('@/view/product/Create')
 const Market = () =>
     import ('@/components/Market')
+const Map = () =>
+    import ('@/components/product/Map')
 
 Vue.use(Router)
 
@@ -28,8 +31,13 @@ export default new Router({
             path: '/login',
             name: 'Login',
             component: Login,
+        },
+        {
+            path: '/map',
+            name: 'Map',
+            component: Map,
         }
     ],
-    mode: 'history', 
+    mode: 'history',
     linkExactActiveClass: 'active',
 });

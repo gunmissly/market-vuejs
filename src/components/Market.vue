@@ -51,11 +51,15 @@
         </div>
         <div class="col-md-3 d-flex align-items-stretch">
           <div class="card" style="width: 20rem;">
-            <div class="card-body">
-              <router-link to="create" style="text-decoration:none">
-                <h3 class="text-center">Create</h3>
-              </router-link>
-            </div>
+            <router-link to="create" style="text-decoration:none">
+              <div class="card-body text-center">
+                <div style="line-height:20rem">
+                  <span class="fa fa-plus fa-2x align-middle">
+                    <p>เพิ่มผลผลิต</p>
+                  </span>
+                </div>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -64,109 +68,109 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import swal from 'sweetalert2'
-  
-  export default {
-    name: 'market',
-    data: () => ({
-      products: [],
-      errors: [],
-      active: false,
-      id: ''
-    }),
-    beforeCreate: function () {
-      /* check session login */
-      if (!this.$session.exists()) {
-        this.$router.push('/login')
-      }
-    },
-    created: function() {
-      this.getProduct();
-    },
-    updated: function() {
-      this.getProduct();
-    },
-    methods: {
-      deleteProduct: function(product) {
-        swal({
-          title: 'Are you sure?',
-          text: "Do you want to delete " + product.ProductName,
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then(function() {
-          axios.delete('https://api.farmerspace.co/market/deleteProduct/' + product.RequestID)
-            .then(response => {
-              // console.log(response.status); // ex.: 200
-              swal(
-                'Deleted!',
-                product.ProductName + ' has been deleted.',
-                'success'
-              )
-            })
-            .catch(e => {
-              this.errors.push(e);
-            })
-        }, function(dismiss) {
-          // dismiss can be 'cancel', 'overlay',
-          // 'close', and 'timer'
-          if (dismiss === 'cancel') {
-            swal('Cancelled', 'Your imaginary file is safe :D', 'error')
-          }
-        })
-      },
-      getProduct: function() {
-        axios.get('https://api.farmerspace.co/market/getProduct/buyer')
+import axios from 'axios';
+import swal from 'sweetalert2'
+
+export default {
+  name: 'market',
+  data: () => ({
+    products: [],
+    errors: [],
+    active: false,
+    id: ''
+  }),
+  beforeCreate: function() {
+    /* check session login */
+    if (!this.$session.exists()) {
+      this.$router.push('/login')
+    }
+  },
+  created: function() {
+    this.getProduct();
+  },
+  updated: function() {
+    this.getProduct();
+  },
+  methods: {
+    deleteProduct: function(product) {
+      swal({
+        title: 'Are you sure?',
+        text: "Do you want to delete " + product.ProductName,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function() {
+        axios.delete('https://api.farmerspace.co/market/deleteProduct/' + product.RequestID)
           .then(response => {
-            this.products = response.data.slice(0, 10);
             // console.log(response.status); // ex.: 200
+            swal(
+              'Deleted!',
+              product.ProductName + ' has been deleted.',
+              'success'
+            )
           })
           .catch(e => {
             this.errors.push(e);
           })
-      }
+      }, function(dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+          swal('Cancelled', 'Your imaginary file is safe :D', 'error')
+        }
+      })
+    },
+    getProduct: function() {
+      axios.get('https://api.farmerspace.co/market/getProduct/buyer')
+        .then(response => {
+          this.products = response.data.slice(0, 10);
+          // console.log(response.status); // ex.: 200
+        })
+        .catch(e => {
+          this.errors.push(e);
+        })
     }
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-  @import '../mq';
-  .container {
-    margin: 4em;
+@import '../mq';
+.container {
+  margin: 4em;
+}
+
+.row {
+  margin-top: 1rem;
+}
+
+.card {
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  border: none;
+  &:hover {
+    background-color: #DDDDDD;
   }
-  
-  .row {
-    margin-top: 1rem;
+}
+
+.card-footer {
+  background-color: #03AF25;
+  border-color: #03AF25;
+}
+
+.title {
+  @include mobile {
+    font-weight: bold;
   }
-  
-  .card {
-    cursor: pointer;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-    border: none;
-    &:hover {
-      background-color: #DDDDDD;
-    }
+  @include tablet {
+    font-size: 2.5rem;
   }
-  
-  .card-footer {
-    background-color: #03AF25;
-    border-color: #03AF25;
+  @include desktop {
+    font-size: 5rem;
+    margin-top: 2 rem;
   }
-  
-  .title {
-    @include mobile {
-      font-weight: bold;
-    }
-    @include tablet {
-      font-size: 2.5rem;
-    }
-    @include desktop {
-      font-size: 5rem;
-      margin-top: 2 rem;
-    }
-  }
+}
 </style>
